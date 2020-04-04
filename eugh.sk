@@ -1,0 +1,5 @@
+command /eugh:
+	description: eugh
+	trigger:
+		if player is op
+			make console execute command "/sudo * c:eugh"
