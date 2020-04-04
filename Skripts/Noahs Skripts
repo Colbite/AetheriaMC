@@ -1,0 +1,103 @@
+# Do not steal any of these, but you may take ideas from them.
+
+# Abilities:
+command /spell <spell>:
+  trigger:
+    if "Locksmith" is arg 1 :
+      set {_loc} to location of player
+      if block at {_loc} is air :
+        if block below {_loc} is not air :
+          message "You casted %arg 1%" to player
+          set {%player%.%arg 1%time} to now
+          set block at {_loc} to stone pressure plate
+          loop players in radius 5 of {_loc} :
+            if contains({%player%friendly::*} , loop-player) is true :
+            if loop-player is player :
+          wait 5 second
+          if block at {_loc} is stone pressure plate :
+            set block at {_loc} to air
+
+    if "Wall of Ice" is arg 1 :
+      trigger:
+        if player facing north:
+          message "You casted %arg 1% to player"
+          execute console command "execute at %player% run fill ~ ~ ~ ~ ~4 ~-1 ice"
+        if player facing east:
+          message "You casted %arg 1% to player"
+          execute console command "execute at %player% run fill ~1 ~4 ~ ~1 ~ ~ ice"
+        if player facing west:
+          message "You casted %arg 1% to player"
+          execute console command "execute at %player% run fill ~-1 ~4 ~-1 ~ ~ ~ ice"
+        if player facing south:
+          execute console command "execute at %player% run fill ~ ~4 ~1 ~ ~ ~1 ice"
+          message "You casted %arg 1% to player"
+
+    if "Spectral Lightning" is arg 1 :
+        wait .2 seconds
+        strike lightning effect at target entity
+        wait .4 seconds
+        strike lightning effect at target entity
+        wait .2 seconds
+        strike lightning effect at target entity
+        else:
+          message "&4Failed, you need to be looking at an entity."
+
+    if "Undying_Rage" is arg 1 :
+      make player invulnerable
+      message "&aYou will be vulnerable again in 10 seconds" to player
+      wait 5 seconds
+      message "&eYou will be vulnerable again in 5 seconds" to player
+      wait 2 seconds
+      message "&4You will be vulnerable again in 3 seconds" to player
+      wait 1 seconds
+      message "&4You will be vulnerable again in 2 seconds" to player
+      wait 1 seconds
+      message "&4You will be vulnerable again in 1 second" to player
+      wait 1 second
+      make player vulnerable
+      message "You are now vulnerable to all attacks" to player
+
+    if "True_Sight" is arg 1 :
+      reveal all entities in radius 100 of player to all entities
+
+# commands:
+
+command /sudo <player> <text> :
+  trigger:
+    make arg-1 execute command "/%arg-2%"
+
+
+
+on login:
+    broadcast "&1%player% &ajust joined the server!"
+
+
+
+command /hide :
+  description: &3Makes player invisible
+  permission: skript.hack
+  trigger:
+    hide player from all players
+    message "&3You are now invisible"
+
+
+
+command /show :
+  description: &3Makes player visible
+  permission: skript.hack
+  trigger:
+    reveal player from all players
+    message "&3You are no longer invisible"
+
+
+
+command /flight :
+  description: &bMakes player fly
+  permission: skript.hack
+  trigger:
+    if player's flight mode is disabled:
+      enable flight for player
+      message "&bFlying Successfully &aEnabled"
+    else:
+      disable flight for player
+      message "&bFlying Successfully &4Disabled"
