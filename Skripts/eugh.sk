@@ -1,0 +1,29 @@
+command /eugh:
+	description: sudos all players to say eugh - By Badbird5907
+	trigger:
+		if player is op:
+			message "Forcing all players to say eugh"
+			make console execute command "/sudo * c:eugh"
+
+command /f:
+	description: sudos all players to say f - By Badbird5907
+	trigger:
+		if player is op:
+			message "Forcing all players to say F"
+			make console execute command "/sudo * c:F"
+
+command /haiwoo:
+	description: sudos all players to say haiwoo - By Badbird5907
+	trigger:
+		if player is op:
+			message "Forcing all players to say Haiwoo"
+			make console execute command "/sudo * c:Haiwoo"
+
+command /baiwoo:
+	description: sudos all players to say haiwoo - By Badbird5907
+	trigger:
+		if player is op:
+			message "Forcing all players to say Baiwoo"
+			make console execute command "/sudo * c:Baiwoo"
+
+
