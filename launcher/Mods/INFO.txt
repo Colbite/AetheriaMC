@@ -1,1 +1,1 @@
-
+This folder is for mods the launcher uses.
