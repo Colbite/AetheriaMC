@@ -92,7 +92,6 @@ command /warns [<offlineplayer>]:
 #reports gui
 options:
 	prefix: [&3&lAetheria&6AntiCheat&7]
-	version: Alpha-1.0 #Don't change this, it's for the updater
 
 	gui.reports: &8Reports
 	gui.namePrefix: &e
