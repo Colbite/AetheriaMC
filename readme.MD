@@ -3,3 +3,5 @@ Launcher will be here:
 https://github.com/Badbird-5907/HeliosLauncher/
 </br>
 The Mod is at: https://github.com/10ion/Aetheria
+</br>
+This is the public released skripts/plugins etc...
