@@ -1,0 +1,319 @@
+#AetheriaCore V1.5 By Badbird5907
+#PERMS:
+#clearchat:aetheriacore.clearchat
+#antixray:aetheriacore.antixray
+#staffchat:aetheriacore.staffchat
+#clearchat:aetheriacore.clearchat
+#warn:aetheriacore.warn
+#clearwarns:aetheriacore.clearwarn
+#seewarns:aetheriacore.seewarn
+#reports:aetheriacore.staff
+#history:aetheriacore.history
+options:
+	version: 1.5
+on load:
+	broadcast:"&a&lLoaded AetheriaCore V{@version} By&c&l Badbird5907"
+#-----------------------------------------------------------------
+command /aetheriacore:
+    trigger:
+        message "&6------------------------------------"
+        message "&6If the command listed is &a&lGREEN&r&6 That means that players can use it. if it is &r&c&lRED&r&6 it is a staff only command"
+        message "&a&l/discord &r&6| Shows The Discord"
+        message "&a&l/rules &r&6| Shows The Rules"
+        message "&a&l/report <Player> <Reason> &r&6| Report a player"
+        message "&a&l/report-help &r&6| See info of /report"
+        message "&a&l/punishments &r&6| See punishments of rules broken"
+        message "&c&l/clearchat &r&6or&r&c&l /cc &r&6| Clears The Chat"
+        message "&c&l/staffchat &r&6or&r&c&l /sc &r&6| Toggles Staff Chat"
+        message "&c&l/qc <Text> &r&6| use staffchat without toggleing it."
+        message "&c&l/warn <Player> <Reason> &r&6| Warn a player"
+        message "&c&l/warns <Player> &r&6| See Warns of a player"
+        message "&c&l/clearwarns <Player> &r&6| Clear all warns of player"
+        message "&c&l/report-help &r&6| See info of /report"
+        message "&c&l/add-history <Player> <Reason> &r&6| Add a note to a player's history."
+        message "&c&l/history <Player> &r&6| See history of a player"
+        message "&c&l/clearhistory <Player> &r&6|&c&lCURRENTLY BUGGED!&r&6 Clear all history of player. &bcan only be run by console."
+#-----------------------------------------------------------------
+command /discord:
+    trigger:
+        message "&aJoin our Discord! Link:"
+        message "https://discord.gg/svTyHaa"
+#-----------------------------------------------------------------
+command /rules:
+    trigger:
+        message "&b&l===========RULES OF AETHERIA==========="
+        message "&c&l[1]&r&6 Do not grief or steal other's belongings"
+        message "&c&l[2]&r&6 Keep the server child-friendly, do not use inappropiate words, skins or names"
+        message "&c&l[3]&r&6 No alts if one of your accounts are banned AKA:Ban-Evading"
+        message "&c&l[4]&r&6 Do not hack or use unapproved mods"
+        message "&c&l[5]&r&6 Do not abuse your permission"
+        message "&c&l[6]&r&6 What the moderators say is final (unless are wrong or unfair.)"
+        message "&c&l[7]&r&6 Do not harass or disrespect toward others"
+        message "&c&l[8]&r&6 Do not advertise your own server within the server unless you have permission"
+        message "&c&l[9]&r&6 Always listen to Moderators+"
+        message "&c&l[10]&r&6 Do not advertise anything not related to server unless you have permission"
+on first join:
+    broadcast "&a&l(!)&r&aWelcome %player% to Aetheria! Please do /rules for the rules!&r&a&l(!)"
+#----------------------------------------------------
+command /punishments:
+    trigger:
+        message "&c&l------------Punishments------------"
+        message "&c&lIn Game Punishments Eg:Hacking"
+        message "&6&l1St Offense: &r&a&lWarn"
+        message "&6&l2nd Offense: &r&c&l1 Week BAN"
+        message "&6&l3rd Offense: &r&c&l1 MONTH BAN"
+        message "&6&l4th Offense: &r&c&l PERM BAN"
+        message "&c&lChat Offenses Eg:Swearing, Malicious links"
+        message "&6&l1St Offense: &r&a&lWarn"
+        message "&6&l2nd Offense: &r&c&l1 Week Mute"
+        message "&6&l3rd Offense: &r&c&l1 MONTH Mute"
+        message "&6&l4th Offense: &r&c&l PERM BAN"
+        message "&c&l------------Punishments------------"
+        message "&aJust a note to mods, every time you add a punishment,"
+        message "&ado /add-history <Player> <what happend and offense number>eg:"
+        message "&a/add-history notch hacking first offense"
+        message "history is currently bugged. sorry -Badbird5907"
+#----------------------------------------------------
+command /clearchat:
+    aliases:/cc
+    description: Clear chat for all players
+    permission: aetheriacore.clearchat
+    permission message:&c&l(!)&r&cYou Don't Have Permission!&r&c&l(!)
+    trigger:
+        loop 300 times:
+            broadcast " "
+        broadcast "&6&m-----------------------------------------"
+        broadcast "&b&lChat has been cleared by %player%!"
+        broadcast "&6&m-----------------------------------------"
+
+#----------------------------------------------------
+#antixray By Noah
+on mine of diamond_ore:
+  if {%player.antixray%} is false:
+    loop all players
+    if loop-player has permission aetheriacore.antixray:
+      message "&b&l(!)&r&b%player% has found diamonds&r&b&l(!)" to loop-player	
+#--------------------------------------------------------
+#Staffchat
+
+
+options:
+  prefix: &8[&a&lStaffChat&8]&c
+  scprefix: &a&lStaffChat&8
+  
+command /staffchat:
+  aliases:/sc
+  trigger:
+    if player has permission "aetheriacore.staffchat":
+      if {sc.%player%} is false:
+        set {sc.%player%} to true
+        send "{@prefix} &bYou turned on staffchat!" to player
+      else if {sc.%player%} is not set:
+        set {sc.%player%} to true
+        send "{@prefix} &bYou turned on staffchat!" to player
+      else:
+        set {sc.%player%} to false
+        send "{@prefix} &c&l(!)&r&cYou turned off staffchat!&r&c&l(!)" to player
+    else:
+      send "{@prefix} &c&l(!)&r&cYou Don't have any permission!&c&l(!)"
+
+command /qc [<text>]:
+  trigger:
+    if player has permission "aetheriacore.staffchat":
+      if arg-1 is not set:
+        send "{@prefix} &cUsage: /qc <text>"
+      else:
+        loop all players:
+          if loop-player has permission "aetheriacore.staffchat":
+            set {sc.text.%player%} to colored arg-1
+            send "{@scprefix} &c%player% &8&l>> &7%{sc.text.%player%}%" to loop-player
+            delete {sc.text.%player%}
+    else:
+      send "{@prefix} &c&l(!)&r&cYou Don't have any permission!&c&l(!)"
+      
+on chat:
+  if {sc.%player%} is true:
+    cancel event
+    loop all players:
+      if loop-player has permission "aetheriacore.staffchat":
+        set {sc.text.%player%} to colored message
+        send "{@scprefix} &c%player% &8&l>> &7%{sc.text.%player%}%" to loop-player
+        delete {sc.text.%player%}
+
+#----------------------------------------------------------------
+#warnings
+command /warn [<offlineplayer>] [<text>]:
+   permission: aetheriacore.warn
+   permission message: &cYou don't have permission to use this command!
+   trigger:
+      if arg-1 is set:
+         if arg-2 is set:
+            broadcast "&b&l---------------------------------------"
+            broadcast "&b&lWARN"
+            broadcast "&b%arg-1% &7has been warned for &b%arg-2%"
+            broadcast "&b&l---------------------------------------"
+            add 1 to {warns::%arg 1's uuid%}
+ 
+command /clearwarns [<offlineplayer>]:
+   permission: aetheriacore.clearwarn
+   permission message: &c&l(!)&r&cYou don't have permission to use this command!&r&c&l(!)
+   trigger:
+      if arg-1 is set:
+         send "&7All warns for &b%arg-1%&7 has been reset." to player
+         set {warns::%arg 1's uuid%} to 0
+         
+ 
+command /warns [<offlineplayer>]:
+   permission: aetheriacore.seewarn
+   permission message: &c&l(!)&r&cYou don't have permission to use this command!&r&c&l(!)
+   trigger:
+      if arg-1 is set:
+         send "&f" to player
+         send "&b&lWARNS" to player
+         send "&b%arg-1%&b's &7Current warns is &b%{warns::%arg 1's uuid%}%" to player
+         send "&f" to player
+         send "&7Please note that, if a player's warn count is over 1. Please punish them! do /punishments" to player
+         send "&f" to player
+#----------------------------------------------------------------
+#history
+command /add-history [<offlineplayer>] [<text>]:
+   permission: aetheriacore.history
+   permission message: &cYou don't have permission to use this command!
+   trigger:
+      if arg-1 is set:
+         if arg-2 is set:
+            say "&b&lAdded To Player's History"
+            add 1 to {history::%arg 1's uuid%}
+ 
+command /clearhistory [<offlineplayer>]:
+   permission message: &c&l(!)&r&cYou don't have permission to use this command!&r&c&l(!)
+   trigger:
+      if executor is console:
+      	if arg-1 is set:
+        	 send "&7All history for &b%arg-1%&7 has been reset." to player
+        	 set {history::%arg 1's uuid%} to 0
+      else:
+         say "&c&l(!)&r&cThis must be executed through console!&r&c&l(!)"
+ 
+command /history [<offlineplayer>]:
+   permission: aetheriacore.seehistory
+   permission message: &c&l(!)&r&cYou don't have permission to use this command!&r&c&l(!)
+   trigger:
+      if arg-1 is set:
+         send "&f" to player
+         send "&b&lHISTORY" to player
+         send "&b%arg-1%&b's &7Current history is &b%{history::%arg 1's uuid%}%" to player
+         send "&f" to player
+#--------------------------------------------------------------------
+#reports
+options:
+	prefix: &c&l[Aetheria Reports]
+	command: report
+	team: aetheriacore.staff
+command /{@command} [<text>] [<text>]:
+	trigger:
+		arg 1 is not set:
+			player does not have permission "{@team}":
+				send "&c&l-----------------------{@prefix}-----------------------"
+				send ""
+				send "{@prefix} &c/{@command} <Player> <Reason> &8- &7Report a Player."
+				send ""
+				send "&c&l-----------------------{@prefix}-----------------------"
+			else:
+				send "&c&l-----------------------{@prefix}-----------------------"
+				send " "
+				send "{@prefix} &c/{@command} <Player> <Reason> &8- &7Report a Player."
+				send "{@prefix} &c/{@command} check <Player> &8- &7Check a Report."
+				send "{@prefix} &c/{@command} delete <Player> &8- &7Delete a report."
+				send ""
+				send "&c&l-----------------------{@prefix}-----------------------"
+		arg 1 is not "check" or "delete":
+			arg 2 is set:
+				{report::%player%} is set:
+					send "{@prefix} You already have a report-ticket."
+					stop
+				set {_player} to "%arg 1%" parsed as offline player
+				set {_reason} to "%arg 2%"
+				set {report::%player%} to true
+				set {report::%player%::player} to {_player}
+				loop all players:
+					loop-player has permission "{@team}":
+						send "&c&l-----------------------{@prefix}-----------------------" to loop-player
+						send "&c&lREPORT: &bNeeded: &9Staff-Member" to loop-player
+						send "&c%player% &7reports &c%{_player}%&7." to loop-player
+						send "&cReason: &9%{_reason}% &8| &c/{@command} check %player%" to loop-player
+						send "&c&l-----------------------{@prefix}-----------------------" to loop-player
+				send "{@prefix} You reported &c%{_player}% &7for &c%{_reason}%&7."
+			else:
+				send "{@prefix} Use &c/{@command} <Player> <Reason>"
+		arg 1 is "check":
+			player has permission "{@team}":
+				arg 2 is set:
+					set {_player} to "%arg 2%" parsed as offline player
+					{report::%{_player}%::check} is not set:
+						{report::%player%::spectate} is not set:
+							set {last_gememode::%player%} to player's gamemode
+							set {l_loc::%player%} to location of player
+							set {report::%player%::spectate} to {report::%{_player}%::player}
+							set {report::%{_player}%::check} to player
+							set player's gamemode to spectator
+							teleport player to {report::%{_player}%::player}
+							loop all players:
+								loop-player has permission "{@team}":
+									send "{@prefix} &c%player% &7Watching Player: &c%{report::%player%::spectate}%&7." to loop-player
+							send "{@prefix} You are watching the player: &c%{report::%player%::spectate}%&7."
+						else:
+							send "{@prefix} You already observed a Player."
+					else:
+						send "{@prefix} A Staff member observed this Player already."
+				else:
+					send "{@prefix} Use &c/{@command} check <Player>"
+			else:
+				send "&8» &c&l(!)&r&cYou don't have permission.&r&c&l(!)"
+		arg 1 is "delete":
+			player has permission "{@team}":
+				arg 2 is set:
+					set {_player} to "%arg 2%" parsed as offline player
+					{report::%{_player}%::check} is not set:
+						delete {report::%{_player}%::*}
+						delete {report::%{_player}%}
+						delete {report::%{_player}%::check}
+						send "{@prefix} &c%player% &7closed your report." to {_player}
+						send "{@prefix} You closed the Report of &c%{_player}%&7."
+						loop all players:
+							loop-player has permission "{@team}":
+								send "{@prefix} &c%player% &7closed the report of &c%{_player}%&7." to loop-player
+					else:
+						{report::%{_player}%::check} is player:
+							delete {report::%{_player}%::*}
+							delete {report::%{_player}%}
+							delete {report::%player%::spectate}
+							delete {report::%{_player}%::check}
+							teleport player to {l_loc::%player%}
+							set player's gamemode to {last_gememode::%player%}
+							send "{@prefix} &c%player% &7closed your report." to {_player}
+							send "{@prefix} You closed the Report of &c%{_player}%&7."
+							loop all players:
+								loop-player has permission "{@team}":
+									send "{@prefix} &c%player% &7closed the report of &c%{_player}%&7." to loop-player
+							delete {last_gememode::%player%}
+							delete {l_loc::%player%}
+							stop
+						else:
+							send "{@prefix} &c&l(!)&r&cA Staff member observed this Player already.&r&c&l(!)"
+				else:
+					send "{@prefix} Use &c/{@command} delete <Player>"
+			else:
+				send "&8» &c&l(!)&r&cYou don't have permission.&r&c&l(!)"
+command /report-help: 
+		player does not have permission "{@team}":
+			send "&c&l-----------------------{@prefix}-----------------------"
+			send "&a&lDefault Commands:"
+			send "&a/{@command} <Player> <Reason> &8- &7Report a Player."
+			send ""
+			send "&c&lStaff Commands:"
+			send "&c/{@command} <Player> <Reason> &8- &7Report a Player."
+			send "&c/{@command} check <Player> &8- &7Check a Report."
+			send "&c/{@command} delete <Player> &8- &7Delete a report."
+			send ""
+			send "&c&l-----------------------{@prefix}-----------------------"
